@@ -9,9 +9,13 @@ public class Main {
 
 		MyPanel myPanel = new MyPanel();
 		myFrame.add(myPanel);
-
+		
+		GameRules gameRules = new GameRules();
+		gameRules.setBombs();
+			
 		GameMouseInteractions myMouseAdapter = new GameMouseInteractions();
 		myFrame.addMouseListener(myMouseAdapter);
+
 
 		myFrame.setVisible(true);
 	}

@@ -31,9 +31,7 @@ public class GameMouseInteractions extends MouseAdapter {
 			myPanel.y = y;
 			myPanel.mouseDownGridX = myPanel.getGridX(x, y);
 			myPanel.mouseDownGridY = myPanel.getGridY(x, y);
-//			GameRules GameRules = new GameRules();
-//			GameRules.setBombs();
-			System.out.println(myPanel.mouseDownGridX + " " + myPanel.mouseDownGridY);
+			//System.out.println(myPanel.mouseDownGridX + " " + myPanel.mouseDownGridY);   -To check Mouse Click coordinates
 			myPanel.repaint();
 			
 			break;
