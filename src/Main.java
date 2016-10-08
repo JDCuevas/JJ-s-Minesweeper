@@ -12,10 +12,10 @@ public class Main {
 		
 		GameRules gameRules = new GameRules();
 		gameRules.setBombs();
-			
+		
 		GameMouseInteractions myMouseAdapter = new GameMouseInteractions();
 		myFrame.addMouseListener(myMouseAdapter);
-
+		
 
 		myFrame.setVisible(true);
 	}
