@@ -8,7 +8,14 @@ public class GameRules {
 	
 	public void setBombs(){			//This method sets bombs around the grid
 		int bombs = 0;
-		while(bombs != 15){ 		//Change to adjust the amount of bombs placed in the grid.
+		for(int i = 0; i < 9; i++){
+			for(int j = 0; j < 9; j++){
+				myPanel.getBombArray() [i][j] = 0;
+				myPanel.getColorArray()[i][j] = Color.WHITE;
+			}
+			
+		}
+		while(bombs != 10){ 		//Change to adjust the amount of bombs placed in the grid.
 			int xGrid = generator.nextInt(9);
 			int yGrid = generator.nextInt(9);
 			if(myPanel.getBombArray() [xGrid][yGrid] == 0){

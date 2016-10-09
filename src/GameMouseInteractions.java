@@ -1,15 +1,14 @@
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
+
 
 import javax.swing.JFrame;
 
 public class GameMouseInteractions extends MouseAdapter {
-	private Random generator = new Random();
-	
+
+
 	public void mousePressed(MouseEvent e) {
 		GameRules gameRules = new GameRules();
 		switch (e.getButton()) {
@@ -33,10 +32,16 @@ public class GameMouseInteractions extends MouseAdapter {
 			myPanel.y = y;
 			myPanel.mouseDownGridX = myPanel.getGridX(x, y);
 			myPanel.mouseDownGridY = myPanel.getGridY(x, y);
-			gameRules.isBomb(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
-			System.out.println(myPanel.mouseDownGridX + " " + myPanel.mouseDownGridY);   
-			System.out.println(myPanel.getBombArray()[myPanel.mouseDownGridX][myPanel.mouseDownGridY]); 
-			
+			if(myPanel.mouseDownGridX == -1 || myPanel.mouseDownGridY  == -1){ // If pressed outside
+				// Do nothing
+			}else if(myPanel.mouseDownGridX < 9 && myPanel.mouseDownGridY < 9){
+				gameRules.isBomb(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
+				System.out.println(myPanel.mouseDownGridX + " " + myPanel.mouseDownGridY);   
+				System.out.println(myPanel.getBombArray()[myPanel.mouseDownGridX][myPanel.mouseDownGridY]); 
+			}else{
+				gameRules.setBombs();
+			}
+
 			break;
 		case 3:		//Right mouse button
 			//Do nothing
