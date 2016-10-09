@@ -9,7 +9,7 @@ public class Main {
 
 		MyPanel myPanel = new MyPanel();
 		myFrame.add(myPanel);
-
+		
 		GameRules gameRules = new GameRules();
 		gameRules.setBombs();
 

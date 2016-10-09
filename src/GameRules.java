@@ -8,14 +8,13 @@ public class GameRules {
 	
 	public void setBombs(){			//This method sets bombs around the grid
 		int bombs = 0;
-		
-		for(int i = 0; i < 9; i++){ // 
-			for(int j = 0; j < 9; j++){
-				myPanel.getBombArray() [i][j] = false; // Resets previous bombs set
+		if(bombs == 10){	// Resets previous bombs set
+			for(int i = 0; i < 9; i++){ // 
+				for(int j = 0; j < 9; j++){
+					myPanel.getBombArray() [i][j] = false; 
+				}
 			}
-			
 		}
-		
 		while(bombs != 10){ 		//Change to adjust the amount of bombs placed in the grid.
 			int xGrid = generator.nextInt(9);
 			int yGrid = generator.nextInt(9);
@@ -24,23 +23,29 @@ public class GameRules {
 				myPanel.getColorArray()[xGrid][yGrid] = Color.BLACK; //Added to check if bombs were being place, and to test isBomb method.
 				bombs++; 
 			} else {
-			//Do nothing if location already has a bomb.
+				//Do Nothing
 			}
 		}
-		//IGNORE - DO NOT TOUCH Loop to check if its setting bombs. Bombs represented by black squares
-//		for(int j = 0; j < MyPanel.TOTAL_COLUMNS; j++){
-//			for(int i = 0; i < MyPanel.TOTAL_ROWS - 1; i++){
-//				if(myPanel.getBombArray()[j][i] == 1){
-//					myPanel.getColorArray()[i][j] = Color.BLACK;					
-//				}
-//			}
-//		}
 	}
+	
 	public boolean isBomb(int x, int y){	
 		if(myPanel.getBombArray()[x][y] == true){
 			return true;
 		}
 		return false;
+	}
+	
+	public void nearbyBombs(int x, int y) {
+		int nearbyBombs = 0;
+
+		for(int i = x-1; i < x + 2; i++){ // Checks all 8 surrounding cells
+			for(int j = y - 1; j < y + 2 ; j++){	
+				if((i > -1 && i < 9) && (j > -1 && j < 9)) // Checks for bombs around clicked cells if the cell exists
+					if(isBomb(i,j))
+						nearbyBombs++;
+			}
+		}					
+		System.out.println("There are: " + nearbyBombs + " bombs around this cell");
 	}
 	
 }
