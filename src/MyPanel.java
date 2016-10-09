@@ -17,7 +17,7 @@ public class MyPanel extends JPanel {
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
 	private static Color[][] colorArray = new Color[TOTAL_ROWS-1][TOTAL_COLUMNS];
-	public static int[][] bombArray = new int[TOTAL_ROWS-1][TOTAL_COLUMNS];
+	public static boolean[][] bombArray = new boolean[TOTAL_ROWS-1][TOTAL_COLUMNS];
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -30,7 +30,7 @@ public class MyPanel extends JPanel {
 		}
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //The rest of the grid
 			for (int y = 0; y < TOTAL_ROWS - 1; y++) {
-				getColorArray()[x][y] = Color.WHITE;	
+				getColorArray()[x][y] = Color.LIGHT_GRAY;	// 1 Set grid gray
 			}
 		}
 		
@@ -48,7 +48,7 @@ public class MyPanel extends JPanel {
 		int height = y2 - y1;
 
 		//Paint the background
-		g.setColor(Color.LIGHT_GRAY);
+		g.setColor(Color.WHITE);
 		g.fillRect(x1, y1, width + 1, height + 1);
 
 		//Draw the grid minus the bottom row (which has only one cell)
@@ -133,10 +133,10 @@ public class MyPanel extends JPanel {
 	public void setColorArray(Color[][] colorArray) {
 		MyPanel.colorArray = colorArray;
 	}
-	public int[][] getBombArray() { 
+	public boolean[][] getBombArray() { 
 		return bombArray;
 	}
-	public void setBombArray(int[][] bombArray) {
+	public void setBombArray(boolean[][] bombArray) {
 		MyPanel.bombArray = bombArray;
 	}
 }

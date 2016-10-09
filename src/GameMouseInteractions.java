@@ -35,11 +35,28 @@ public class GameMouseInteractions extends MouseAdapter {
 			if(myPanel.mouseDownGridX == -1 || myPanel.mouseDownGridY  == -1){ // If pressed outside
 				// Do nothing
 			}else if(myPanel.mouseDownGridX < 9 && myPanel.mouseDownGridY < 9){
-				gameRules.isBomb(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
-				System.out.println(myPanel.mouseDownGridX + " " + myPanel.mouseDownGridY);   
-				System.out.println(myPanel.getBombArray()[myPanel.mouseDownGridX][myPanel.mouseDownGridY]); 
+				if(gameRules.isBomb(myPanel.mouseDownGridX, myPanel.mouseDownGridY)){
+					System.out.println("BOMB");
+				}else{ // If it is not a bomb
+
+					int nearbyBombs = 0;
+
+					for(int i = myPanel.mouseDownGridX-1; i < myPanel.mouseDownGridX+2; i++){ // Checks all 8 surrounding cells
+						for(int j = myPanel.mouseDownGridY-1; j < myPanel.mouseDownGridY+2 ; j++){
+							
+							if((i > -1 && i < 9) && (j > -1 && j < 9)) // Checks for bombs around clicked cells if the cell exists
+								if(gameRules.isBomb(i,j))
+									nearbyBombs++;
+						}
+					}
+					
+					
+					
+					System.out.println("There are: " + nearbyBombs + " bombs around this cell");
+				}
 			}else{
 				gameRules.setBombs();
+				myPanel.repaint();
 			}
 
 			break;

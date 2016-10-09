@@ -8,18 +8,19 @@ public class GameRules {
 	
 	public void setBombs(){			//This method sets bombs around the grid
 		int bombs = 0;
-		for(int i = 0; i < 9; i++){
+		
+		for(int i = 0; i < 9; i++){ // 
 			for(int j = 0; j < 9; j++){
-				myPanel.getBombArray() [i][j] = 0;
-				myPanel.getColorArray()[i][j] = Color.WHITE;
+				myPanel.getBombArray() [i][j] = false; // Resets previous bombs set
 			}
 			
 		}
+		
 		while(bombs != 10){ 		//Change to adjust the amount of bombs placed in the grid.
 			int xGrid = generator.nextInt(9);
 			int yGrid = generator.nextInt(9);
-			if(myPanel.getBombArray() [xGrid][yGrid] == 0){
-				myPanel.getBombArray() [xGrid][yGrid] = 1;
+			if(myPanel.getBombArray() [xGrid][yGrid] == false){
+				myPanel.getBombArray() [xGrid][yGrid] = true;
 				myPanel.getColorArray()[xGrid][yGrid] = Color.BLACK; //Added to check if bombs were being place, and to test isBomb method.
 				bombs++; 
 			} else {
@@ -36,10 +37,10 @@ public class GameRules {
 //		}
 	}
 	public boolean isBomb(int x, int y){	
-		if(myPanel.getBombArray()[x][y] == 1){
-			System.out.println("Bomb!");
+		if(myPanel.getBombArray()[x][y] == true){
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 }
