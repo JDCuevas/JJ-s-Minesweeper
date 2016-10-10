@@ -2,11 +2,9 @@ import java.awt.Component;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-
 import javax.swing.JFrame;
 
-public class GameMouseInteractions extends MouseAdapter {
+public class GameMouseInteractions extends MouseAdapter { // test
 
 	public void mousePressed(MouseEvent e) {
 		GameRules gameRules = new GameRules();
@@ -37,13 +35,19 @@ public class GameMouseInteractions extends MouseAdapter {
 			if(myPanel.mouseDownGridX == -1 || myPanel.mouseDownGridY  == -1){ // If pressed outside
 				// Do nothing
 			} else if (myPanel.mouseDownGridX < 9 && myPanel.mouseDownGridY < 9){
-				if(gameRules.isBomb(myPanel.mouseDownGridX, myPanel.mouseDownGridY)){
+				if(gameRules.isBomb(myPanel.mouseDownGridX, myPanel.mouseDownGridY)&&(!gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY))){
 					System.out.println("BOMB");
 				} else { // If it is not a bomb
-					gameRules.nearbyBombs(myPanel.mouseDownGridX,myPanel.mouseDownGridY);
+					if((gameRules.nearbyBombs(myPanel.mouseDownGridX,myPanel.mouseDownGridY) > 0)&&(!gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY)))
+						System.out.println("There are: " + gameRules.nearbyBombs(myPanel.mouseDownGridX,myPanel.mouseDownGridY)+ " bombs around this cell");
+					else{
+						
+					}
+
 				}
 			} else {
-				gameRules.resetBombs();
+				gameRules.resetGame();
+				
 				myPanel.repaint();
 			}
 
@@ -63,8 +67,21 @@ public class GameMouseInteractions extends MouseAdapter {
 			y = e.getY();
 			int gridX = myPanel.getGridX(x, y);
 			int gridY = myPanel.getGridY(x, y);
-			gameRules.flag(gridX, gridY);
-			myPanel.repaint();
+			
+			if(myPanel.mouseDownGridX == -1 || myPanel.mouseDownGridY  == -1){ // If pressed outside
+				// Do nothing
+			} else if (myPanel.mouseDownGridX < 9 && myPanel.mouseDownGridY < 9){
+				if(gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY) == false){
+				gameRules.setFlag(gridX, gridY);
+				myPanel.repaint();	
+				}else{
+				gameRules.resetFlag(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
+				}
+				
+				myPanel.repaint();	
+			}
+			
+			
 			break;
 		default:    //Some other button (2 = Middle mouse button, etc.)
 			//Do nothing
