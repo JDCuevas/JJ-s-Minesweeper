@@ -4,7 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 
-public class GameMouseInteractions extends MouseAdapter { // test
+public class GameMouseInteractions extends MouseAdapter {
 
 	public void mousePressed(MouseEvent e) {
 		GameRules gameRules = new GameRules();

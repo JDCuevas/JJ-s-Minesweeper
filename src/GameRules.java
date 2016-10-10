@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class GameRules {
 
-	private Random generator = new Random();
+	private Random generator = new Random(); 
 
 	public static Color[][] colorArray = new Color[9][10];
 	public static boolean[][] bombArray = new boolean[9][9];

@@ -1,6 +1,6 @@
 import javax.swing.JFrame;
 
-public class Main {
+public class Main { 
 	public static void main(String[] args) {
 		JFrame myFrame = new JFrame("JJ's Minesweeper");
 		myFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
