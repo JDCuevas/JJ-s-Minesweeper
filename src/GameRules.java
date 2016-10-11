@@ -27,18 +27,7 @@ public class GameRules {
 			}
 		}
 	}
-
-	public void resetGame(){
-		for(int i = 0; i < 9; i++){ 
-			for(int j = 0; j < 9; j++){
-				getBombArray() [i][j] = false; 
-				flagArray[i][j] = false;
-				getColorArray()[i][j] = Color.LIGHT_GRAY;
-			}
-		}
-		setBombs();
-	}
-
+	
 	public boolean isBomb(int x, int y){	
 		if(getBombArray()[x][y] == true){
 			return true;
@@ -56,9 +45,9 @@ public class GameRules {
 						nearbyBombs++;
 			}
 		}		
-		
+
 		return nearbyBombs;
-		
+
 	}
 
 	public void setFlag(int x, int y){ //Don't touch - will make a flagArray in my panel to fix single flag bug. And will fix right click event errors. 
@@ -86,6 +75,26 @@ public class GameRules {
 		}
 		return false;
 	}
+	
+	public void resetFlag(int x, int y){
+		flagArray[x][y] = false;
+		
+		if(bombArray[x][y]==false)
+			colorArray[x][y] = Color.LIGHT_GRAY;
+		else 
+			colorArray[x][y] = Color.BLACK;
+	}
+	
+	public void resetGame(){
+		for(int i = 0; i < 9; i++){ 
+			for(int j = 0; j < 9; j++){
+				getBombArray() [i][j] = false; 
+				flagArray[i][j] = false;
+				getColorArray()[i][j] = Color.LIGHT_GRAY;
+			}
+		}
+		setBombs();
+	}
 
 	public static Color[][] getColorArray() { 
 		return colorArray;
@@ -98,10 +107,6 @@ public class GameRules {
 	}
 	public void setBombArray(boolean[][] bombArray) {
 		GameRules.bombArray = bombArray;
-	}
-	public void resetFlag(int x, int y){
-		flagArray[x][y] = false;
-		colorArray[x][y] = Color.LIGHT_GRAY;
 	}
 
 
