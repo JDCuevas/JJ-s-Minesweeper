@@ -12,9 +12,6 @@ public class GameRules {
 	int bombs = 0;
 
 	public void setBombs(){			//This method sets bombs around the grid		
-		//		if(bombs == 10){	// Resets previous bombs set
-		//			
-		//		}
 		while(bombs != 10){ 		//Change to adjust the amount of bombs placed in the grid.
 			int xGrid = generator.nextInt(9);
 			int yGrid = generator.nextInt(9);
@@ -26,7 +23,7 @@ public class GameRules {
 				//Do Nothing
 			}
 		}
-		for(int i = 0; i < 9; i++){  
+		for(int i = 0; i < 9; i++){  //Loops to get bomb coordinates for bug fixing.
 			for(int j = 0; j < 9; j++){
 				if(isBomb(i,j)){
 					System.out.println("BOMB: " + i + ", " + j);
@@ -37,10 +34,7 @@ public class GameRules {
 	}
 
 	public boolean isBomb(int x, int y){	
-		if(getBombArray()[x][y] == true){
-			return true;
-		}
-		return false;
+		return getBombArray()[x][y];
 	}
 
 	public int nearbyBombs(int x, int y) {
@@ -60,24 +54,9 @@ public class GameRules {
 
 	}
 
-	public void setFlag(int x, int y){ //Don't touch - will make a flagArray in my panel to fix single flag bug. And will fix right click event errors. 
-		//		for(int i = 0; i < 9; i++){ // 
-		//			for(int j = 0; j < 9; j++){
-		//				if(isBomb(i,j)){
-		//					getColorArray() [i][j] = Color.BLACK; 
-		//				}
-		//			}
-		//		}
+	public void setFlag(int x, int y){ 
 		flagArray[x][y] = true;
 		getColorArray()[x][y] = Color.RED;
-		//		for(int i = 0; i < 9; i++){  
-		//			for(int j = 0; j < 9; j++){
-		//				if(isFlag(i,j)){
-		//					getColorArray() [i][j] = Color.RED; 
-		//				}
-		//			}
-		//		}
-
 	}
 
 	public void removeFlag(int x, int y) {
@@ -86,10 +65,7 @@ public class GameRules {
 	}
 
 	public boolean isFlag(int x, int y){
-		if(flagArray[x][y] == true){
-			return true;
-		}
-		return false;
+		return flagArray[x][y];
 	}
 
 	public void resetGame(){
