@@ -20,14 +20,22 @@ public class GameRules {
 			int yGrid = generator.nextInt(9);
 			if(getBombArray()[xGrid][yGrid] == false){
 				getBombArray()[xGrid][yGrid] = true;
-				getColorArray()[xGrid][yGrid] = Color.BLACK; //Added to check if bombs were being place, and to test isBomb method.
+				//getColorArray()[xGrid][yGrid] = Color.BLACK; //Added to check if bombs were being place, and to test isBomb method.
 				bombs++; 
 			} else {
 				//Do Nothing
 			}
 		}
+		for(int i = 0; i < 9; i++){  
+			for(int j = 0; j < 9; j++){
+				if(isBomb(i,j)){
+					System.out.println("BOMB: " + i + ", " + j);
+				}
+			}
+		}
+
 	}
-	
+
 	public boolean isBomb(int x, int y){	
 		if(getBombArray()[x][y] == true){
 			return true;
@@ -45,6 +53,8 @@ public class GameRules {
 						nearbyBombs++;
 			}
 		}		
+		if(nearbyBombs>0)
+			System.out.println("There are: " + nearbyBombs + " bombs around this cell");
 
 		return nearbyBombs;
 
@@ -60,13 +70,19 @@ public class GameRules {
 		//		}
 		flagArray[x][y] = true;
 		getColorArray()[x][y] = Color.RED;
-		for(int i = 0; i < 9; i++){  
-			for(int j = 0; j < 9; j++){
-				if(isFlag(i,j)){
-					getColorArray() [i][j] = Color.RED; 
-				}
-			}
-		}
+		//		for(int i = 0; i < 9; i++){  
+		//			for(int j = 0; j < 9; j++){
+		//				if(isFlag(i,j)){
+		//					getColorArray() [i][j] = Color.RED; 
+		//				}
+		//			}
+		//		}
+
+	}
+
+	public void removeFlag(int x, int y) {
+		flagArray[x][y] = false;	
+		colorArray[x][y] = Color.LIGHT_GRAY;	
 	}
 
 	public boolean isFlag(int x, int y){
@@ -75,16 +91,7 @@ public class GameRules {
 		}
 		return false;
 	}
-	
-	public void resetFlag(int x, int y){
-		flagArray[x][y] = false;
-		
-		if(bombArray[x][y]==false)
-			colorArray[x][y] = Color.LIGHT_GRAY;
-		else 
-			colorArray[x][y] = Color.BLACK;
-	}
-	
+
 	public void resetGame(){
 		for(int i = 0; i < 9; i++){ 
 			for(int j = 0; j < 9; j++){
@@ -96,19 +103,13 @@ public class GameRules {
 		setBombs();
 	}
 
+
 	public static Color[][] getColorArray() { 
 		return colorArray;
 	}
-	public void setColorArray(Color[][] colorArray) {
-		GameRules.colorArray = colorArray;
-	}
+
 	public static boolean[][] getBombArray() { 
 		return bombArray;
 	}
-	public void setBombArray(boolean[][] bombArray) {
-		GameRules.bombArray = bombArray;
-	}
-
-
 
 }

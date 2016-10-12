@@ -31,7 +31,7 @@ public class MyPanel extends JPanel {
 		}
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //The rest of the grid
 			for (int y = 0; y < TOTAL_ROWS - 1; y++) {
-				GameRules.getColorArray()[x][y] = Color.LIGHT_GRAY;	//Set grid gray
+				GameRules.getColorArray()[x][y] = Color.WHITE;	//Set grid white
 			}
 		}
 		
@@ -49,7 +49,7 @@ public class MyPanel extends JPanel {
 		int height = y2 - y1;
 
 		//Paint the background
-		g.setColor(Color.WHITE);
+		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(x1, y1, width + 1, height + 1);
 
 		//Draw the grid minus the bottom row (which has only one cell)
