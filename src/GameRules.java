@@ -11,12 +11,12 @@ public class GameRules {
 
 	int bombs = 0;
 
-	public void setBombs(){			//This method sets bombs around the grid		
+	public void setBombs(){			//Sets bombs around the grid		
 		while(bombs != 10){ 		//Change to adjust the amount of bombs placed in the grid.
 			int xGrid = generator.nextInt(9);
 			int yGrid = generator.nextInt(9);
-			if(getBombArray()[xGrid][yGrid] == false){
-				getBombArray()[xGrid][yGrid] = true;
+			if(bombArray[xGrid][yGrid] == false){
+				bombArray[xGrid][yGrid] = true;
 				bombs++; 
 			} else {
 				//Do Nothing
@@ -32,11 +32,11 @@ public class GameRules {
 
 	}
 
-	public boolean isBomb(int x, int y){	
-		return getBombArray()[x][y];
+	public boolean isBomb(int x, int y){	//Getter for bombArray
+		return bombArray[x][y];
 	}
 
-	public int nearbyBombs(int x, int y) {
+	public int nearbyBombs(int x, int y) { //Counts bombs in surrounding cells
 		int nearbyBombs = 0;
 		
 		// Checks all 8 surrounding cells
@@ -52,33 +52,33 @@ public class GameRules {
 
 	}
 
-	public void setFlag(int x, int y){ 
+	public void setFlag(int x, int y){ //Sets flags
 		flagArray[x][y] = true;
 		getColorArray()[x][y] = Color.RED;
 	}
 
-	public void removeFlag(int x, int y) {
+	public void removeFlag(int x, int y) { //Removes flags
 		flagArray[x][y] = false;	
 		colorArray[x][y] = Color.WHITE;	
 	}
 
-	public boolean isFlag(int x, int y){
+	public boolean isFlag(int x, int y){ //Getter for flagArray
 		return flagArray[x][y];
 	}
 
-	public void resetGame(){
+	public void resetGame(){ //Resets the game
 		for(int i = 0; i < 9; i++){ 
 			for(int j = 0; j < 9; j++){
-				getBombArray() [i][j] = false; 
+				bombArray[i][j] = false; 
 				flagArray[i][j] = false;
-				getColorArray()[i][j] = Color.LIGHT_GRAY;
+				colorArray[i][j] = Color.LIGHT_GRAY;
 			}
 		}
 		setBombs();
 	}
 	
-	public boolean isRevealed(int x, int y){
-		if(getColorArray()[x][y].equals(Color.LIGHT_GRAY)){
+	public boolean isRevealed(int x, int y){ //Checks to see if cell is revealed.
+		if(colorArray[x][y].equals(Color.LIGHT_GRAY)){
 			return true;
 		}
 		return false;
@@ -87,11 +87,12 @@ public class GameRules {
 	public void emptyCellReveal(int x, int y){ //Recursive method to chain reveal cells without nearbyBombs. Stops at cells with nearbyBombs > 0.
 		//Checks to see if coordinates are inside grid.
 		if((x >= 0 && x < 9) && (y >= 0 && y < 9)){ 
-			if(isBomb(x,y) == false && getColorArray()[x][y] != Color.LIGHT_GRAY){
+			if(isBomb(x,y) == false && isRevealed(x,y) == false){
 				colorArray[x][y] = Color.LIGHT_GRAY;
 				if(nearbyBombs(x,y) > 0){
 					return;
 				} else {
+					//Checks cells in all four cardinal directions
 					emptyCellReveal(x + 1, y);
 					emptyCellReveal(x, y + 1);
 					emptyCellReveal(x - 1, y);
@@ -105,10 +106,6 @@ public class GameRules {
 
 	public static Color[][] getColorArray() { 
 		return colorArray;
-	}
-	
-	public static boolean[][] getBombArray() { 
-		return bombArray;
 	}
 
 }
