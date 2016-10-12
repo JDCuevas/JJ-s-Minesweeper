@@ -3,6 +3,7 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class GameMouseInteractions extends MouseAdapter {
 	GameRules gameRules = new GameRules();
@@ -36,7 +37,7 @@ public class GameMouseInteractions extends MouseAdapter {
 				// Do nothing
 			} else if (myPanel.mouseDownGridX < 9 && myPanel.mouseDownGridY < 9){
 				if(gameRules.isBomb(myPanel.mouseDownGridX, myPanel.mouseDownGridY) && (gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY) == false)){
-					System.out.println("BOMB");
+					JOptionPane.showMessageDialog(null, "Game over! Nice try though");
 				} else { // If it is not a bomb
 					if(gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY) == false){ //If cell isn't flagged
 						gameRules.emptyCellReveal(myPanel.mouseDownGridX, myPanel.mouseDownGridY);

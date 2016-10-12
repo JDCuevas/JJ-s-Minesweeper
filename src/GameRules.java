@@ -71,7 +71,7 @@ public class GameRules {
 			for(int j = 0; j < 9; j++){
 				bombArray[i][j] = false; 
 				flagArray[i][j] = false;
-				colorArray[i][j] = Color.LIGHT_GRAY;
+				colorArray[i][j] = Color.WHITE;
 			}
 		}
 		setBombs();
@@ -101,8 +101,6 @@ public class GameRules {
 			}
 		}
 	}
-	
-
 
 	public static Color[][] getColorArray() { 
 		return colorArray;
