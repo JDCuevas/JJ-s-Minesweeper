@@ -15,8 +15,7 @@ public class Main {
 
 		GameMouseInteractions myMouseAdapter = new GameMouseInteractions();
 		myFrame.addMouseListener(myMouseAdapter);
-			
-
+		
 		myFrame.setVisible(true);
 	}
 }

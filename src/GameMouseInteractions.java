@@ -7,8 +7,7 @@ import javax.swing.JFrame;
 public class GameMouseInteractions extends MouseAdapter {
 	GameRules gameRules = new GameRules();
 	public void mousePressed(MouseEvent e) {
-
-
+		
 		Component c = e.getComponent();
 		while (!(c instanceof JFrame)) {
 			c = c.getParent();
@@ -48,6 +47,7 @@ public class GameMouseInteractions extends MouseAdapter {
 				gameRules.resetGame();
 			}
 			myPanel.repaint();
+			gameRules.wonGame();
 			break;
 		case 3:		//Right mouse button
 			//Do nothing
@@ -70,9 +70,10 @@ public class GameMouseInteractions extends MouseAdapter {
 					gameRules.setFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY);
 				} else {
 					gameRules.removeFlag(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
-				}
+				}	
 				myPanel.repaint();
 			}
+			gameRules.wonGame();
 			break;
 		default:    //Some other button (2 = Middle mouse button, etc.)
 			//Do nothing

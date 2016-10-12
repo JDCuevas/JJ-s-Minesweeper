@@ -10,20 +10,22 @@ public class GameRules {
 	public static Color[][] colorArray = new Color[9][10];
 	public static boolean[][] bombArray = new boolean[9][9];
 	public static boolean[][] flagArray = new boolean[9][9];
-	int bombs = 0;
-
+	public int bombs = 10;
+	
 	public void setBombs(){			//Sets bombs around the grid.
-		while(bombs != 10){ 		//Change to adjust the amount of bombs placed in the grid.
+		int bombs = 0;
+		while(bombs != this.bombs){ 		//Change to adjust the amount of bombs placed in the grid.
 			int xGrid = generator.nextInt(9);
 			int yGrid = generator.nextInt(9);
 			
 			if(bombArray[xGrid][yGrid] == false){
 				bombArray[xGrid][yGrid] = true;
-				bombs++; 
+				bombs++;
 			} else {
 				//Do Nothing
 			}
 		}
+		
 		for(int i = 0; i < 9; i++){  //Loops to get bomb coordinates for bug fixing.
 			for(int j = 0; j < 9; j++){
 				if(isBomb(i,j)){
@@ -33,7 +35,7 @@ public class GameRules {
 		}
 	}
 
-	public boolean isBomb(int x, int y){	//Getter for bombArray.
+	public boolean isBomb(int x, int y){ //Getter for bombArray.
 		return bombArray[x][y];
 	}
 
@@ -75,14 +77,33 @@ public class GameRules {
 		JOptionPane.showMessageDialog(null, "Game over! Nice try though.\n(Press the black square at the bottom left to reset)");
 	}
 	
+	public void wonGame(){ //Check if all bombs have been flagged and all empty cells, revealed
+		int bombCount = 0;
+		int emptyCount = 0;
+		for(int i = 0; i < 9; i++){
+			for(int j = 0; j < 9; j++){
+				if(isBomb(i,j) && isFlag(i,j)){
+					bombCount++;
+				} else if(isRevealed(i,j)){
+					emptyCount++;
+				}
+			}
+		}
+		if(bombCount == bombs && emptyCount == ((MyPanel.TOTAL_COLUMNS * (MyPanel.TOTAL_ROWS - 1)) - bombs)){
+			JOptionPane.showMessageDialog(null, "You win!\n(Press the black square at the bottom left to reset)");
+		}
+	}
+	
 	public void setFlag(int x, int y){ //Sets flags.
 		flagArray[x][y] = true;
 		getColorArray()[x][y] = Color.RED;
 	}
 
 	public void removeFlag(int x, int y) { //Removes flags.
-		flagArray[x][y] = false;	
+		//Fix error here when unflagging.
 		colorArray[x][y] = Color.WHITE;	
+		
+		flagArray[x][y] = false;
 	}
 
 	public boolean isFlag(int x, int y){ //Getter for flagArray.
