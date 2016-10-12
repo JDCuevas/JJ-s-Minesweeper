@@ -17,7 +17,6 @@ public class GameRules {
 			int yGrid = generator.nextInt(9);
 			if(getBombArray()[xGrid][yGrid] == false){
 				getBombArray()[xGrid][yGrid] = true;
-				//getColorArray()[xGrid][yGrid] = Color.BLACK; //Added to check if bombs were being place, and to test isBomb method.
 				bombs++; 
 			} else {
 				//Do Nothing
@@ -39,17 +38,16 @@ public class GameRules {
 
 	public int nearbyBombs(int x, int y) {
 		int nearbyBombs = 0;
-
-		for(int i = x - 1; i < x + 2; i++){ // Checks all 8 surrounding cells
+		
+		// Checks all 8 surrounding cells
+		for(int i = x - 1; i < x + 2; i++){
 			for(int j = y - 1; j < y + 2 ; j++){	
-				if((i > -1 && i < 9) && (j > -1 && j < 9)) // Checks for bombs around clicked cells if the cell exists
+				//Makes sure selection is in grid
+				if((i >= 0 && i < 9) && (j >= 0 && j < 9))
 					if(isBomb(i,j))
 						nearbyBombs++;
 			}
 		}		
-		if(nearbyBombs>0)
-			System.out.println("There are: " + nearbyBombs + " bombs around this cell");
-
 		return nearbyBombs;
 
 	}
@@ -61,7 +59,7 @@ public class GameRules {
 
 	public void removeFlag(int x, int y) {
 		flagArray[x][y] = false;	
-		colorArray[x][y] = Color.LIGHT_GRAY;	
+		colorArray[x][y] = Color.WHITE;	
 	}
 
 	public boolean isFlag(int x, int y){
@@ -78,12 +76,37 @@ public class GameRules {
 		}
 		setBombs();
 	}
+	
+	public boolean isRevealed(int x, int y){
+		if(getColorArray()[x][y].equals(Color.LIGHT_GRAY)){
+			return true;
+		}
+		return false;
+	}
+	
+	public void emptyCellReveal(int x, int y){ //Recursive method to chain reveal cells without nearbyBombs. Stops at cells with nearbyBombs > 0.
+		//Checks to see if coordinates are inside grid.
+		if((x >= 0 && x < 9) && (y >= 0 && y < 9)){ 
+			if(isBomb(x,y) == false && getColorArray()[x][y] != Color.LIGHT_GRAY){
+				colorArray[x][y] = Color.LIGHT_GRAY;
+				if(nearbyBombs(x,y) > 0){
+					return;
+				} else {
+					emptyCellReveal(x + 1, y);
+					emptyCellReveal(x, y + 1);
+					emptyCellReveal(x - 1, y);
+					emptyCellReveal(x, y - 1);
+				}
+			}
+		}
+	}
+	
 
 
 	public static Color[][] getColorArray() { 
 		return colorArray;
 	}
-
+	
 	public static boolean[][] getBombArray() { 
 		return bombArray;
 	}

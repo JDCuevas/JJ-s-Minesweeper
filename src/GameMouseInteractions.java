@@ -35,13 +35,13 @@ public class GameMouseInteractions extends MouseAdapter {
 			if(myPanel.mouseDownGridX == -1 || myPanel.mouseDownGridY  == -1){ // If pressed outside
 				// Do nothing
 			} else if (myPanel.mouseDownGridX < 9 && myPanel.mouseDownGridY < 9){
-				if(gameRules.isBomb(myPanel.mouseDownGridX, myPanel.mouseDownGridY)&&(!gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY))){
+				if(gameRules.isBomb(myPanel.mouseDownGridX, myPanel.mouseDownGridY) && (gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY) == false)){
 					System.out.println("BOMB");
 				} else { // If it is not a bomb
-					if((!gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY))){
-						gameRules.nearbyBombs(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
-					}else{
-						// no bombs nearby or flag
+					if(gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY) == false){ //If cell isn't flagged
+						gameRules.emptyCellReveal(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
+					} else {
+						//If cell is flagged do nothing
 					}
 				}
 			} else {
@@ -62,19 +62,15 @@ public class GameMouseInteractions extends MouseAdapter {
 			myPanel = (MyPanel) myFrame.getContentPane().getComponent(0); //Can also loop among components to find MyPanel
 			x = e.getX();
 			y = e.getY();
-			int gridX = myPanel.getGridX(x, y);
-			int gridY = myPanel.getGridY(x, y);
-
+			
 			if(myPanel.mouseDownGridX == -1 || myPanel.mouseDownGridY  == -1){ // If pressed outside
 				// Do nothing
-
-
 			} else if (myPanel.mouseDownGridX < 9 && myPanel.mouseDownGridY < 9){
-				if(gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY) == false)
-					gameRules.setFlag(gridX, gridY);
-				else
+				if(gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY) == false){
+					gameRules.setFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY);
+				} else {
 					gameRules.removeFlag(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
-
+				}
 				myPanel.repaint();
 			}
 			break;

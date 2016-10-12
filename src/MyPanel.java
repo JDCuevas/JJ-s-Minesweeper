@@ -16,7 +16,7 @@ public class MyPanel extends JPanel {
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
-	
+	GameRules gameRules = new GameRules();
 	
 	
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
@@ -49,7 +49,7 @@ public class MyPanel extends JPanel {
 		int height = y2 - y1;
 
 		//Paint the background
-		g.setColor(Color.LIGHT_GRAY);
+		g.setColor(Color.DARK_GRAY);
 		g.fillRect(x1, y1, width + 1, height + 1);
 
 		//Draw the grid minus the bottom row (which has only one cell)
@@ -74,6 +74,13 @@ public class MyPanel extends JPanel {
 					Color c = GameRules.getColorArray()[x][y];
 					g.setColor(c);
 					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
+					
+					//Displays number of nearbyBombs on revealed cells with nearbyBombs > 0.
+					if(gameRules.isRevealed(x,y) && gameRules.nearbyBombs(x, y) > 0){
+						Color d = Color.BLACK;
+						g.setColor(d);
+						g.drawString(Integer.toString(gameRules.nearbyBombs(x,y)),x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 12, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 21);
+					}
 				}
 			}
 		}
