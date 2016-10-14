@@ -35,6 +35,8 @@ public class GameMouseInteractions extends MouseAdapter {
 				// Do nothing
 			} else if (myPanel.mouseDownGridX < 9 && myPanel.mouseDownGridY < 9){
 				if(gameRules.isBomb(myPanel.mouseDownGridX, myPanel.mouseDownGridY) && (gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY) == false)){
+					gameRules.revealBombs();
+					myPanel.repaint();
 					gameRules.gameOver();
 				} else { // If it is not a bomb
 					if(gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY) == false){ //If cell isn't flagged

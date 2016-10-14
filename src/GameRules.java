@@ -66,7 +66,7 @@ public class GameRules {
 		setBombs();
 	}
 	
-	public void gameOver(){ //Displays bombs on grid.
+	public void revealBombs(){
 		for(int i = 0; i < 9; i++){
 			for(int j = 0; j < 9; j++){
 				if(isBomb(i,j)){
@@ -74,7 +74,16 @@ public class GameRules {
 				}
 			}
 		}
-		JOptionPane.showMessageDialog(null, "Game over! Nice try though.\n(Press the black square at the bottom left to reset)");
+	}
+	
+	public void gameOver(){ //Displays bombs on grid.
+		if (JOptionPane.showConfirmDialog(null, "Game over! Nice try though. Want to try again?", "Wow, what a shame you had to see this window.",
+		        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    resetGame();
+		} else {
+		    //'No' option
+			System.exit(0);
+		}
 	}
 	
 	public void wonGame(){ //Check if all bombs have been flagged and all empty cells, revealed
@@ -90,7 +99,13 @@ public class GameRules {
 			}
 		}
 		if(bombCount == bombs && emptyCount == ((MyPanel.TOTAL_COLUMNS * (MyPanel.TOTAL_ROWS - 1)) - bombs)){
-			JOptionPane.showMessageDialog(null, "You win!\n(Press the black square at the bottom left to reset)");
+			if (JOptionPane.showConfirmDialog(null, "You win! But can you do that again?", "Wow, nice! Pat yourself in the back kid.",
+			        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+			    resetGame();
+			} else {
+			    //'No' option
+				System.exit(0);
+			}
 		}
 	}
 	
