@@ -10,7 +10,7 @@ public class GameRules {
 	public static Color[][] colorArray = new Color[9][10];
 	public static boolean[][] bombArray = new boolean[9][9];
 	public static boolean[][] flagArray = new boolean[9][9];
-	public int bombs = 10;
+	public int bombs = 12;
 	
 	public void setBombs(){			//Sets bombs around the grid.
 		int bombs = 0;
@@ -107,14 +107,15 @@ public class GameRules {
 	}
 	
 	public void setFlag(int x, int y){ //Sets flags.
-		flagArray[x][y] = true;
-		getColorArray()[x][y] = Color.RED;
+		if(isRevealed(x,y) == false){
+			flagArray[x][y] = true;
+			getColorArray()[x][y] = Color.RED;
+		}
 	}
 
 	public void removeFlag(int x, int y) { //Removes flags.
 		//Fix error here when unflagging.
 		colorArray[x][y] = Color.WHITE;	
-		
 		flagArray[x][y] = false;
 	}
 
