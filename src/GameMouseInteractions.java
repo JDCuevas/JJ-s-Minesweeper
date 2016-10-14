@@ -46,7 +46,7 @@ public class GameMouseInteractions extends MouseAdapter {
 					}
 				}
 			} else {
-				gameRules.resetGame();
+				//Do nothing
 			}
 			myPanel.repaint();
 			gameRules.wonGame();

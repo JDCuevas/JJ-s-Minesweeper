@@ -86,19 +86,16 @@ public class GameRules {
 		}
 	}
 	
-	public void wonGame(){ //Check if all bombs have been flagged and all empty cells, revealed
-		int bombCount = 0;
-		int emptyCount = 0;
+	public void wonGame(){ //Check if all empty cells have been revealed.
+		int revealedCount = 0;
 		for(int i = 0; i < 9; i++){
 			for(int j = 0; j < 9; j++){
-				if(isBomb(i,j) && isFlag(i,j)){
-					bombCount++;
-				} else if(isRevealed(i,j)){
-					emptyCount++;
+				if(isRevealed(i,j)){
+					revealedCount++;
 				}
 			}
 		}
-		if(bombCount == bombs && emptyCount == ((MyPanel.TOTAL_COLUMNS * (MyPanel.TOTAL_ROWS - 1)) - bombs)){
+		if(revealedCount == ((MyPanel.TOTAL_COLUMNS * (MyPanel.TOTAL_ROWS)) - bombs)){
 			if (JOptionPane.showConfirmDialog(null, "You win! But can you do that again?", "Wow, nice! Pat yourself in the back kid.",
 			        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			    resetGame();
