@@ -17,8 +17,8 @@ public class MyPanel extends JPanel {
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
 	GameRules gameRules = new GameRules();
-	
-	
+
+
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -34,7 +34,7 @@ public class MyPanel extends JPanel {
 				GameRules.getColorArray()[x][y] = Color.WHITE;	//Set grid white
 			}
 		}
-		
+
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -69,7 +69,7 @@ public class MyPanel extends JPanel {
 					Color c = GameRules.getColorArray()[x][y];
 					g.setColor(c);
 					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
-					
+
 					//Displays number of nearbyBombs in different colors on revealed cells with nearbyBombs > 0.
 					if(gameRules.isRevealed(x,y) && gameRules.nearbyBombs(x, y) > 0){
 						Color d = Color.BLACK;
@@ -142,7 +142,7 @@ public class MyPanel extends JPanel {
 		}
 		x = x / (INNER_CELL_SIZE + 1);
 		y = y / (INNER_CELL_SIZE + 1);
-		
+
 		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   //Outside the rest of the grid
 			return -1;
 		}

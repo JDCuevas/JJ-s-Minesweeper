@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 public class GameMouseInteractions extends MouseAdapter {
 	GameRules gameRules = new GameRules();
 	public void mousePressed(MouseEvent e) {
-		
+
 		Component c = e.getComponent();
 		while (!(c instanceof JFrame)) {
 			c = c.getParent();
@@ -34,12 +34,12 @@ public class GameMouseInteractions extends MouseAdapter {
 			if(myPanel.mouseDownGridX == -1 || myPanel.mouseDownGridY  == -1){ // If pressed outside
 				// Do nothing
 			} else if (myPanel.mouseDownGridX < 9 && myPanel.mouseDownGridY < 9){
-				if(gameRules.isBomb(myPanel.mouseDownGridX, myPanel.mouseDownGridY) && (gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY) == false)){
+				if(gameRules.isBomb(myPanel.mouseDownGridX, myPanel.mouseDownGridY) && (!gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY))){
 					gameRules.revealBombs();
 					myPanel.repaint();
 					gameRules.gameOver();
 				} else { // If it is not a bomb
-					if(gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY) == false){ //If cell isn't flagged
+					if(!gameRules.isFlag(myPanel.mouseDownGridX,myPanel.mouseDownGridY)){ //If cell isn't flagged
 						gameRules.emptyCellReveal(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
 					} else {
 						//If cell is flagged do nothing
@@ -48,8 +48,8 @@ public class GameMouseInteractions extends MouseAdapter {
 			} else {
 				//Do nothing
 			}
-			myPanel.repaint();
-			gameRules.wonGame();
+			//			myPanel.repaint();
+			//			gameRules.wonGame();
 			break;
 		case 3:		//Right mouse button
 			//Do nothing
@@ -64,7 +64,7 @@ public class GameMouseInteractions extends MouseAdapter {
 			myPanel = (MyPanel) myFrame.getContentPane().getComponent(0); //Can also loop among components to find MyPanel
 			x = e.getX();
 			y = e.getY();
-			
+
 			if(myPanel.mouseDownGridX == -1 || myPanel.mouseDownGridY  == -1){ // If pressed outside
 				// Do nothing
 			} else if (myPanel.mouseDownGridX < 9 && myPanel.mouseDownGridY < 9){
@@ -73,16 +73,17 @@ public class GameMouseInteractions extends MouseAdapter {
 				} else {
 					gameRules.removeFlag(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
 				}	
-				myPanel.repaint();
+				//				myPanel.repaint();
 			}
-			gameRules.wonGame();
+			//			gameRules.wonGame();
 			break;
 		default:    //Some other button (2 = Middle mouse button, etc.)
 			//Do nothing
 			break;
 		}
 
-
+		myPanel.repaint();
+		gameRules.wonGame();
 
 
 	}
