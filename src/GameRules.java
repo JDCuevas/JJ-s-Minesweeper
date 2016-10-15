@@ -25,14 +25,6 @@ public class GameRules {
 				//Do Nothing
 			}
 		}
-		
-		for(int i = 0; i < 9; i++){  //Loops to get bomb coordinates for bug fixing.
-			for(int j = 0; j < 9; j++){
-				if(isBomb(i,j)){
-					System.out.println("BOMB: " + i + ", " + j);
-				}
-			}
-		}
 	}
 
 	public boolean isBomb(int x, int y){ //Getter for bombArray.
@@ -52,7 +44,6 @@ public class GameRules {
 			}
 		}		
 		return nearbyBombs;
-
 	}
 	
 	public void resetGame(){ //Resets the game.
@@ -66,7 +57,7 @@ public class GameRules {
 		setBombs();
 	}
 	
-	public void revealBombs(){
+	public void revealBombs(){ //Reveals bombs on grid.
 		for(int i = 0; i < 9; i++){
 			for(int j = 0; j < 9; j++){
 				if(isBomb(i,j)){
@@ -76,7 +67,7 @@ public class GameRules {
 		}
 	}
 	
-	public void gameOver(){ //Displays bombs on grid.
+	public void gameOver(){ //Game over message with retry option.
 		if (JOptionPane.showConfirmDialog(null, "Game over! Nice try though. Want to try again?", "Wow, what a shame you had to see this window.",
 		        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		    resetGame();
@@ -96,7 +87,7 @@ public class GameRules {
 			}
 		}
 		if(revealedCount == ((MyPanel.TOTAL_COLUMNS * (MyPanel.TOTAL_ROWS)) - bombs)){
-			if (JOptionPane.showConfirmDialog(null, "You win! But can you do that again?", "Wow, nice! Pat yourself in the back kid.",
+			if (JOptionPane.showConfirmDialog(null, "You win! But can you do that again?", "Wow, nice! Pat yourself in the back.",
 			        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			    resetGame();
 			} else {

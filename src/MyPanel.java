@@ -70,9 +70,32 @@ public class MyPanel extends JPanel {
 					g.setColor(c);
 					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
 					
-					//Displays number of nearbyBombs on revealed cells with nearbyBombs > 0.
+					//Displays number of nearbyBombs in different colors on revealed cells with nearbyBombs > 0.
 					if(gameRules.isRevealed(x,y) && gameRules.nearbyBombs(x, y) > 0){
 						Color d = Color.BLACK;
+						switch(gameRules.nearbyBombs(x,y)){
+						case 1:
+							d = new Color(0x007FFF);
+							break;
+						case 2:
+							d = new Color(0x50C878);
+							break;
+						case 3:
+							d = Color.RED;
+							break;
+						case 4:
+							d = Color.BLUE;
+							break;
+						case 5:
+							d = new Color(0x800000);
+							break;
+						case 6:
+							d = Color.BLACK;
+							break;
+						case 7:
+							d = Color.GRAY;
+							break;	
+						}
 						g.setColor(d);
 						g.drawString(Integer.toString(gameRules.nearbyBombs(x,y)),x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 12, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 21);
 					}
